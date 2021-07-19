@@ -58,6 +58,8 @@ public class UserDB {
             trans.begin();
             em.merge(user);
             trans.commit();
+        } catch (Exception ex) {
+            trans.rollback();
         } finally {
             em.close();
         }
@@ -66,10 +68,13 @@ public class UserDB {
     public void delete(User user) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
+
         try {
             trans.begin();
             em.remove(user);
             trans.commit();
+        } catch (Exception ex) {
+            trans.rollback();
         } finally {
             em.close();
         }
